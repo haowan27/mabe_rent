@@ -18,5 +18,6 @@ project/
     ├── models.py
     └── database.py
 ```
-## WEcantfuck
-letmefuckfuck
+## log
+- python版本，3102=>3123
+- 启动配置文件在.vscode/launch.json,需要安装python debuger插件
