@@ -1,0 +1,4 @@
+DEBUG: true
+SECRET_KEY: "your_secret_key"
+DATABASE_URL: "sqlite:///example.db"
+PERMANENT_SESSION_LIFETIME: 86400
