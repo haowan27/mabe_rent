@@ -1,0 +1,15 @@
+<h1>
+    admin_dashboard
+</h1>
+<p>
+    Hello, {{ session['username'] }}
+</p>
+
+<body>
+    <h1>Shopping Cart</h1>
+    <ul>
+        {% for item in my_ctx_dict.cart %}
+            <li>{{ item.name }} - ${{ item.price }}</li>
+        {% endfor %}
+    </ul>
+</body>
