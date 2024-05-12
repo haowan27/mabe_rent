@@ -7,6 +7,13 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .alert {
+            position: fixed;
+            top: 20px; /* 顶部距离 */
+            left: 50%; /* 居中 */
+            transform: translateX(-50%); /* 水平居中 */
+            z-index: 9999; /* 设置层级 */
+        }
         body {
             padding-top: 40px;
             padding-bottom: 40px;
@@ -50,13 +57,29 @@
 </head>
 <body>
     <div class="container">
+        {% if error %}
+        <div id="alert" class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
         <form class="form-signin" method="POST">
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <h2 class="form-signin-heading">你好,请登录。</h2>
             {{ form.csrf_token }}
-            {{ form.username.label }}{{ form.username(class="form-control", placeholder="Username", autofocus=True) }}
-            {{ form.password.label }}{{ form.password(class="form-control", placeholder="Password") }}
+            {{ form.username.label }}{{ form.username(class="form-control", placeholder="账号", autofocus=True) }}
+            {{ form.password.label }}{{ form.password(class="form-control", placeholder="密码") }}
             {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
         </form>
     </div>
 </body>
+    <!-- 引入 jQuery 库 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // 使用 jQuery 来等待 DOM 加载完毕后执行 JavaScript 代码
+        $(document).ready(function() {
+            // 获取 alert 元素
+            var alert = $('#alert');
+            // 在 alert 显示后，5秒钟后自动隐藏
+            alert.fadeIn().delay(5000).fadeOut();
+        });
+    </script>
 </html>
