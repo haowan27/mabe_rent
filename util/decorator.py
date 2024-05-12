@@ -9,7 +9,7 @@ def login_required(view):
         # 检查 session 中是否存在用户名
         if "username" not in session:
             # 如果用户未登录，则重定向到登录页面
-            return redirect(url_for("login"))
+            return redirect(url_for("admin.Login"))
         # 如果用户已登录，则调用原始的视图函数
         return view(*args, **kwargs)
 

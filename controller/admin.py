@@ -23,7 +23,6 @@ def Hello():
 
 
 @bp.route("/login", methods=["GET", "POST"])
-@login_required
 def Login():
     form = LoginForm()
     if not form.validate_on_submit():
