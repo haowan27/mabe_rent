@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS rent_house (
     check_status INT
 )AUTO_INCREMENT = 1;
 
-CREATE TABLE IF NOT EXISTS rent_house (
+CREATE TABLE IF NOT EXISTS rent_request (
     id INT AUTO_INCREMENT PRIMARY KEY,
     from_customer INT, 
     title VARCHAR(128) NOT NULL,

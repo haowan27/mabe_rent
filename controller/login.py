@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, redirect, render_template, request, session, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from util.decorator import login_required
 
 bp = Blueprint(
-    "admin", __name__, url_prefix="/admin", template_folder="../templates/static"
+    "login", __name__, url_prefix="/admin", template_folder="../templates/static"
 )
 identity = {"username": "admin", "password": "admin"}
 
@@ -33,4 +33,5 @@ def Login():
     ):
         return render_template("login.html", error="账号或密码错误", form=form)
     session["username"] = form.username.data
-    return render_template("index.html", my_ctx_dict="123")
+    # return render_template("index.html", my_ctx_dict="123")
+    return redirect(url_for("admin.index"))
