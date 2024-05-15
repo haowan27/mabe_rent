@@ -1,4 +1,6 @@
 DEBUG: true
 SECRET_KEY: "your_secret_key"
-DATABASE_URL: "sqlite:///example.db"
+SQLALCHEMY_DATABASE_URI: "mysql+pymysql://root:123456@localhost/rent"
 PERMANENT_SESSION_LIFETIME: 86400
+SQLALCHEMY_TRACK_MODIFICATIONS: False
+ENV: "DEV"
