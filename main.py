@@ -1,9 +1,12 @@
 from flask import Flask
-from controller import admin
+from controller import admin, index
+from extention.admin import InitAdmin
+
 import yaml
 
 app = Flask(__name__)
 app.register_blueprint(admin.bp)
+app.register_blueprint(index.bp)
 
 
 def load_config():
@@ -20,6 +23,7 @@ def load_debug_config():
 
 if __name__ == "__main__":
     load_config()
+    InitAdmin(app)
     app.run()
 else:
     load_config()
