@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_admin import Admin, BaseView, expose, AdminIndexView
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-import controller.login
+from controller import admin, index
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your_secret_key"
@@ -11,7 +11,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-app.register_blueprint(controller.login.bp)
+app.register_blueprint(admin.bp)
+app.register_blueprint(index.bp)
 
 
 class RentCustomer(db.Model):
@@ -54,12 +55,14 @@ class RentExpect(db.Model):
     Content = db.Column(db.Text)
 
 
-##实测 这一步完成之后会添加一个名为admin的蓝图，具体没研究，当黑盒用
+##实测 这一步完成之后会添加一个名为flask-admin的蓝图，具体没研究，当黑盒用
 admin = Admin(
     app,
     name="RentAdmin",
     template_mode="bootstrap3",
-    index_view=AdminIndexView(url="/", template="admin/home.html"),
+    index_view=AdminIndexView(
+        url="/", template="admin/home.html", endpoint="flask-admin"
+    ),
 )
 
 admin.add_view(ModelView(RentExpect, db.session))
