@@ -19,6 +19,9 @@ class LoginForm(FlaskForm):
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        print(form.username.data)
+        print(form.password.data)
+
         # 在这里处理登录逻辑，这里只是简单的重定向到首页
         return redirect(url_for("index"))
     return render_template("static/login.html", form=form)
