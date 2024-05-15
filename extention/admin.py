@@ -1,18 +1,8 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-from controller import admin, index
 
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "your_secret_key"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:123456@localhost/rent"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
-
-app.register_blueprint(admin.bp)
-app.register_blueprint(index.bp)
+db = SQLAlchemy()
 
 
 class RentCustomer(db.Model):
@@ -55,28 +45,25 @@ class RentExpect(db.Model):
     Content = db.Column(db.Text)
 
 
-##实测 这一步完成之后会添加一个名为flask-admin的蓝图，具体没研究，当黑盒用
-admin = Admin(
-    app,
-    name="RentAdmin",
-    template_mode="bootstrap3",
-    index_view=AdminIndexView(
-        url="/", template="admin/home.html", endpoint="flask-admin"
-    ),
-)
+def InitAdmin(app):
+    # 这一步完成之后会添加一个名为flask-admin的蓝图，具体没研究，当黑盒用
+    flask_admin = Admin(
+        app,
+        name="RentAdmin",
+        template_mode="bootstrap3",
+        index_view=AdminIndexView(
+            url="/extention/admin", template="admin/home.html", endpoint="flask-admin"
+        ),
+    )
+    db = SQLAlchemy(app)
+    flask_admin.add_view(ModelView(RentExpect, db.session))
+    flask_admin.add_view(ModelView(RentCustomer, db.session))
+    flask_admin.add_view(ModelView(RentHouse, db.session))
+    flask_admin.add_view(ModelView(RentRequest, db.session))
 
-admin.add_view(ModelView(RentExpect, db.session))
-admin.add_view(ModelView(RentCustomer, db.session))
-admin.add_view(ModelView(RentHouse, db.session))
-admin.add_view(ModelView(RentRequest, db.session))
 
 # def initTable():
 #     with app.app_context():
 #         inspector = db.inspect(db.engine)
 #         if not inspector.has_table("rent_expect"):
 #             db.create_all()
-
-
-if __name__ == "__main__":
-    # initTable()
-    app.run(debug=True)
