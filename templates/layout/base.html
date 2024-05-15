@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title%} {% endblock%}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Add custom styles here */
+    .navbar-vertical {
+      width: 200px;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .navbar-vertical .nav > li > a {
+      color: #333;
+    }
+    .navbar-vertical .nav > li > a:hover,
+    .navbar-vertical .nav > li > a:focus {
+      background-color: #e9ecef;
+    }
+    .main-container {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- 左侧导航栏 -->
+    <div class="col-sm-3">
+      <nav class="navbar-vertical">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="/admin/home">Home</a></li>
+          <li><a href="/admin/about">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <!-- 右侧主内容 -->
+    <div class="col-sm-9 main-container">
+      {% block content %}
+      <h1>Main Content</h1>
+      <p>This is the main content area.</p>
+      {% endblock %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
